@@ -37,6 +37,7 @@ def generateWordDict(word_tokens,pretrained = '../WordVecFiles/glove.6B.300d.txt
 	OOV_words = 0
 	t0 = time.clock()
 	word_vecs = np.zeros((vocabSize+1,300))
+	print 'Assigning gLoVe vectors to work tokens...'
 	for word in word_tokens:
 		try:
 			indValue = np.where(globalWordTokens == word.lower())[0]
