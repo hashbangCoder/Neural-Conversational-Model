@@ -1,10 +1,33 @@
 # Neural-Conversational-Model
 Tensorflow Implementation of Neural Conversational Model by Vinyals et.al. - http://arxiv.org/pdf/1506.05869v3.pdf
 
-Uses TFRecords, dynamic_rnn implementation and pretrained word-embeddings to speed up training. Trained on the excellently formated Cornell Movie Dialogure corpus - http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html
+Includes optimizations like TFRecords, dynamic_rnn implementation and pretrained word-embeddings to speed up training. Trained on the excellently formated Cornell Movie Dialogure corpus available at - http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html
+
+####PRE-REQUISITES:
+1. Tensorflow
+
+1. CUDNN, CUDA 
+
+1. Python's NLTK package
+
+1. Stanford's Pretrained GloVe Vectors available [here](http://nlp.stanford.edu/projects/glove/). Code currently only supports 300-dim vectors
+
+1. Cornell's Movie Dialog dataset
 
 
-###After training for 48,000 mini-batches (roughly 8 epochs), some of the outputs : 
+####HOW TO RECREATE :
+Requires a Tensorflow supported GPU. CPU version not supported. With all pre-requisites installed
+
+1.  In `loadWordVecs.py` set paths to downloaded GloVe file and output path in function `generateWordDict`, 
+
+1. `CUDA_VISIBLE_DEVICES=1 python chatbot.py`
+
+####TO EVALUATE (Requires a checkpoint file): 
+
+`CUDA_VISIBLE_DEVICES=1 python eval_chatsy.py --run-mode 1 --load-chkpt <path to valid checkpoint file>`
+
+####EXAMPLE CONVERSATIONS AFTER ROUGHLY 8 EPOCHS : 
+
 Convo 1:
 >User : Hi!
 
@@ -20,9 +43,8 @@ Convo 3:
 
 >Chatty : I'm not going to hurt you.
 
-This is not what I inputed but *definitely what I felt*
 >User : ...  (quietly backs out of chat)
 
-NOTE : The outputs are slightly formatted to remove the <eos> token and to correct misspellings (ex: "I' m") in the training corpus hence the vocabulary. But otherwise it has not been altered in any way
+NOTE : The example conversations were slightly edited to correct misspellings (ex: "I' m") in the training corpus hence the learnt vocabulary. But otherwise unaltered in any way.
 
 I'll update how to run the code and format it a bit more soon!
