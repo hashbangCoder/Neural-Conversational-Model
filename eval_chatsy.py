@@ -6,14 +6,14 @@ import inspect_checkpoint as ic
 import cPickle
 
 ##Build the graph
-def eval_chatsy(checkpt):
+def eval_chatsy(options):
     #checkpt = '../Checkpoints/checkpoint_48000'
     vocab_size = 49452
     embedding_dims = 300
     print 'Loading saved glove embeddings for tokens...'
-    with open('../WordVecFiles/wordToInd.dict','rb') as f:
+    with open(options.wvec_dict,'rb') as f:
         word_dict = cPickle.load(f)	
-    with open('../WordVecFiles/wordVecs.matrix','rb') as f:
+    with open(options.wvec_mat,'rb') as f:
         word_vecs = cPickle.load(f)
     inv_word_dict = {v: k for k, v in word_dict.iteritems()}
     ## Add <UNK> token
@@ -53,7 +53,7 @@ def eval_chatsy(checkpt):
         word_ind = tf.argmax(tf.nn.softmax(tf.matmul(tf.reshape(output,[-1,1024]),tf.transpose(W)) + b),1)
 
     saver =tf.train.Saver()
-    saver.restore(sess,checkpt)
+    saver.restore(sess,options.load_checkpt)
     enc_state = encoder_state.eval(feed_dict = {encoder_inp:inp_vector})
     exit
     stopGenFlag = False

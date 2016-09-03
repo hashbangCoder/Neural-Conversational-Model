@@ -1,5 +1,4 @@
 from optparse import OptionParser
-import datetime
 import utils,loadWordVecs
 import os,random,cPickle,sys
 from tensorflow.python.ops import embedding_ops,rnn_cell,rnn
@@ -66,7 +65,7 @@ def train(options):
 	decoder_batch = tf.cast(embedding_ops.embedding_lookup(embedding,mini_batch[1]),tf.float32)
 
 	## Build graph for seq-seq model
-	print '\n'*2,'Building Seq-Seq Graph...'
+	print '\n'*2,'Building Sequence-Sequence Graph Model...'
 	with tf.variable_scope('seqToseq') as scope:
 		with tf.variable_scope('enc'):
 			gru_cell_enc = rnn_cell.GRUCell(1024)
@@ -130,7 +129,7 @@ def train(options):
 if int(options.mode) == 1 and options.load_chkpt is '':
 	raise Exception('Require saved checkpoint file for test mode')
 elif int(options.mode) == 1 and os.path.isfile(options.load_chkpt):
-	eval_chatsy.main_eval(options.load_chkpt)
+	eval_chatsy.main_eval(options)
 	sys.exit(0)
 elif int(options.mode) == 0:
 	train(options)
