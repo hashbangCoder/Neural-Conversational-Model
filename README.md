@@ -27,7 +27,9 @@ Requires a Tensorflow supported GPU. CPU version not supported. With all pre-req
 
 
 ####TO EVALUATE (Requires a checkpoint file): 
+
 NOTE : Currently out of vocabulary words are not supported. So for some inputs (some proper nouns, uncommon words) it will throw an error. Will add support soon.
+
 `CUDA_VISIBLE_DEVICES=1 python eval_chatsy.py --run-mode 1 --load-chkpt <path to valid checkpoint file>`
 
 
