@@ -24,6 +24,10 @@ Requires a Tensorflow supported GPU. CPU version not supported. With all pre-req
 
 1. `CUDA_VISIBLE_DEVICES=1 python chatbot.py`
 
+####RESUME TRAINING WITH SAVED CHECKPOINT FILE :
+
+`CUDA_VISIBLE_DEVICES=1 python chaatbot.py --run-mode 0 --load-chkpt <path to valid checkpoint file>`
+
 
 
 ####TO EVALUATE (Requires a checkpoint file): 
