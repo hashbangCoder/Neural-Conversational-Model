@@ -28,7 +28,8 @@ def extractVecs(pretrained):
 
 def generateWordDict(word_tokens,pretrained = '../WordVecFiles/glove.6B.300d.txt',outputPath = '../WordVecFiles/'):
 	# Add 1 for <eos> token
-	vocabSize = len(word_tokens) + 1
+	vocabSize = len(word_tokens) + 2
+
 	print 'Loading pretrained vectors from file...'
 	globalWordTokens, globalWordVectors = extractVecs(pretrained)
 	## Get index of word (in corpus) in the GloVe vector file
@@ -36,7 +37,7 @@ def generateWordDict(word_tokens,pretrained = '../WordVecFiles/glove.6B.300d.txt
 	word_ind = 1
 	OOV_words = 0
 	t0 = time.clock()
-	word_vecs = np.zeros((vocabSize+1,300))
+	word_vecs = np.zeros((vocabSize,300))
 	print 'Assigning gLoVe vectors to work tokens...'
 	for word in word_tokens:
 		try:
@@ -54,9 +55,11 @@ def generateWordDict(word_tokens,pretrained = '../WordVecFiles/glove.6B.300d.txt
 		except Exception as e:
 			print word,'\t', indValue, type(word)
 			print e.message
-	word_dict['<end>'] = vocabSize
-	assert word_vecs[vocabSize].sum() ==0,'asser error'
-	word_vecs[vocabSize] = np.random.uniform(-0.1,0.1,size=300)
+	word_dict['<end>'] = word_ind
+	word_dict['<go>'] = word_ind+1
+	word_vecs[vocabSize-2] = np.random.uniform(-0.1,0.1,size=300)
+	word_vecs[vocabSize-1] = np.random.uniform(-0.1,0.1,size=300)
+
 	print time.clock() - t0, " taken to process the text corpus and assign word vectors. Total of %d OOV tokens out of %d vocabulary size" %(OOV_words,vocabSize)
 
 	with open(outputPath+'wordToInd.dict','wb') as f:
