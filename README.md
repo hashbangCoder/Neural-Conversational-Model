@@ -3,6 +3,7 @@ Tensorflow Implementation of Neural Conversational Model by Vinyals et.al. - htt
 
 Includes optimizations like TFRecords, dynamic_rnn implementation and pretrained word-embeddings to speed up training. Trained on the excellently formated Cornell Movie Dialogure corpus available at - http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html
 
+
 ####PRE-REQUISITES:
 1. Tensorflow
 
@@ -15,6 +16,7 @@ Includes optimizations like TFRecords, dynamic_rnn implementation and pretrained
 1. Cornell's Movie Dialog dataset
 
 
+
 ####HOW TO RECREATE :
 Requires a Tensorflow supported GPU. CPU version not supported. With all pre-requisites installed
 
@@ -22,9 +24,13 @@ Requires a Tensorflow supported GPU. CPU version not supported. With all pre-req
 
 1. `CUDA_VISIBLE_DEVICES=1 python chatbot.py`
 
-####TO EVALUATE (Requires a checkpoint file): 
 
+
+####TO EVALUATE (Requires a checkpoint file): 
+NOTE : Currently out of vocabulary words are not supported. So for some inputs (some proper nouns, uncommon words) it will throw an error. Will add support soon.
 `CUDA_VISIBLE_DEVICES=1 python eval_chatsy.py --run-mode 1 --load-chkpt <path to valid checkpoint file>`
+
+
 
 ####EXAMPLE CONVERSATIONS AFTER ROUGHLY 8 EPOCHS : 
 
@@ -47,4 +53,3 @@ Convo 3:
 
 NOTE : The example conversations were slightly edited to correct misspellings (ex: "I' m") in the training corpus hence the learnt vocabulary. But otherwise unaltered in any way.
 
-I'll update how to run the code and format it a bit more soon!
